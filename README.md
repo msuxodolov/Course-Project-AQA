@@ -21,4 +21,4 @@
 - После прогона тестов запустить команду ./gradlew allureServe.
 
 ## Отчет по запуску Allure   
-![Allure](alluri.png)
+![Allure](fkk.png)
