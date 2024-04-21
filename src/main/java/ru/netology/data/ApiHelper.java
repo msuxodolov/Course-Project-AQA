@@ -15,7 +15,7 @@ public class ApiHelper {
     }
 
     private static Connection getConn() throws SQLException {
-        return DriverManager.getConnection("db",  "app", "qwer123");
+        return DriverManager.getConnection(System.getProperty("db.url"),  "app", "qwer123");
     }
 
     @SneakyThrows

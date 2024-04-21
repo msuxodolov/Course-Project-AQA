@@ -68,7 +68,7 @@ public class ApiTest {
 
     // Сценарий №30(Bag №8)
     @Test
-    @DisplayName("Сумма при оплате зарегистрированной карте")
+    @DisplayName("Сумма при оплате удаленной карте")
     void databaseQueryDeclinededAmountTest() {
         val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getDeclinedCardInfo(),  getValidYear());
         val dashboardPage = new DashboardPage();
