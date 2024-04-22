@@ -20,6 +20,9 @@
 - Запустить в терминале команду ./gradlew clean test;
 - После прогона тестов запустить команду ./gradlew allureServe.
 
+## Интеграция CI
+[![Java CI with Gradle](https://github.com/msuxodolov/Course-Project-AQA/actions/workflows/gradle.yml/badge.svg)](https://github.com/msuxodolov/Course-Project-AQA/actions/workflows/gradle.yml)
+
 # [План автоматизации](Plan.md)
 # [Отчётные документы по итогам тестирования](Report.md)
 # [Отчётные документы по итогам автоматизации](Summary.md)
