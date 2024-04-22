@@ -44,10 +44,6 @@ public class PaymentPage {
         $(".notification_status_error").shouldBe(visible, Duration.ofSeconds(30));
     }
 
-//    public void fillErrorForm() {
-//        cardNumberError.shouldBe(visible);
-//    }
-
     public void cardNumberErrorVisible(){
         cardNumberError.shouldBe(visible);
     }

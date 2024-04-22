@@ -288,7 +288,7 @@ public class PayPayTest {
 
     // Сценарий №27
     @Test
-    @DisplayName("Статус зарегистрированного пользователя")
+    @DisplayName("Просмотр статуса в СУБД MySQL зарегистрированного пользователя")
     void databaseQueryApprovedStatusTest() {
         val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
         val dashboardPage = new DashboardPage();
@@ -301,9 +301,10 @@ public class PayPayTest {
 
     // Сценарий №28(Bag №7)
     @Test
-    @DisplayName("Сумма при оплате зарегистрированной карте")
+    @DisplayName("Просмотр оплаты тура в СУБД MySQL зарегистрированного пользователя")
     void databaseQueryApprovedAmountTest() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(),
+                getValidMonth(), getApprovedCardInfo(),  getValidYear());
         val dashboardPage = new DashboardPage();
         val paymentPage = dashboardPage.payByCard();
         paymentPage.fillForm(authInfo);
@@ -314,7 +315,7 @@ public class PayPayTest {
 
     // Сценарий №29
     @Test
-    @DisplayName("Статус удаленного пользователя")
+    @DisplayName("Просмотр статуса в СУБД MySQL отклоненного пользователя")
     void databaseQueryDeclinedStatusTest() {
         val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getDeclinedCardInfo(),  getValidYear());
         val dashboardPage = new DashboardPage();
@@ -327,9 +328,10 @@ public class PayPayTest {
 
     // Сценарий №30(Bag №8)
     @Test
-    @DisplayName("Сумма при оплате удаленной карте")
+    @DisplayName("Просмотр оплаты тура в СУБД MySQL отклоненного пользователя")
     void databaseQueryDeclinededAmountTest() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getDeclinedCardInfo(),  getValidYear());
+        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(),
+                getDeclinedCardInfo(),  getValidYear());
         val dashboardPage = new DashboardPage();
         val paymentPage = dashboardPage.payByCard();
         paymentPage.fillForm(authInfo);
