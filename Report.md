@@ -5,10 +5,12 @@
 
 __Из них 73,3% успешных теста - 26,7% проваленных!__       
 
-![Report №1.png](Images%2FReport%20%B91.png)    
+ ![Report №1](https://github.com/msuxodolov/Course-Project-AQA/assets/163032491/ae0d95cb-f1cd-4ac5-93cc-8c263cc1aad7)
+
+![Report 2](https://github.com/msuxodolov/Course-Project-AQA/assets/163032491/ddd579b7-e7f9-4c55-a583-89696fac9863)
 
 
-![Report 2.png](Images%2FReport%202.png)    
+
 ### В результате проведения тестирования было занесено 9 баг-репортов:
 - 6 дефектов в результате тестирования веб-сайта;
 - 2 дефекта в результате тестирования на занесение данных в СУБД MySQL;
