@@ -3,19 +3,12 @@
 - 26 автоматизиринованных тестов *(UI)*;
 - 4 автоматизированных теста на проверку занесения данных в СУБД MySQL;
 
-__Из них 73,3% успешных теста - 26,7% проваленных.git __
+__Из них 73,3% успешных теста - 26,7% проваленных.__
 
 ![Report №1](https://github.com/msuxodolov/Course-Project-AQA/assets/163032491/ae0d95cb-f1cd-4ac5-93cc-8c263cc1aad7)
 
 ![Report 2](https://github.com/msuxodolov/Course-Project-AQA/assets/163032491/ddd579b7-e7f9-4c55-a583-89696fac9863)
 
-<<<<<<< HEAD
-=======
- ![Report №1](https://github.com/msuxodolov/Course-Project-AQA/assets/163032491/ae0d95cb-f1cd-4ac5-93cc-8c263cc1aad7)
-
-![Report 2](https://github.com/msuxodolov/Course-Project-AQA/assets/163032491/ddd579b7-e7f9-4c55-a583-89696fac9863)
-
->>>>>>> 325f1ebdaeea801bc614bc15c5a7704d0a2e9bba
 
 
 ### В результате проведения тестирования было занесено 9 баг-репортов:
