@@ -1,9 +1,7 @@
 package ru.netology.page;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import ru.netology.data.DataHelper;
-import ru.netology.data.DataHelper.AuthInfo;
+import ru.netology.data.DataHelper.CardInfo;
 
 
 import java.time.Duration;
@@ -27,12 +25,12 @@ public class PaymentPage {
     private final SelenideElement holderError = $(byText("Владелец")).parent().$(".input__sub");
     private final SelenideElement cvcError = $(byText("CVC/CVV")).parent().$(".input__sub");
 
-    public void fillForm(AuthInfo authInfo) {
-        cardNumber.setValue(authInfo.getCardNumber());
-        month.setValue(authInfo.getMonth());
-        year.setValue(authInfo.getYear());
-        holder.setValue(authInfo.getHolder());
-        cvc.setValue(authInfo.getCvc());
+    public void fillForm(CardInfo cardInfo) {
+        cardNumber.setValue(cardInfo.getCardNumber());
+        month.setValue(cardInfo.getMonth());
+        year.setValue(cardInfo.getYear());
+        holder.setValue(cardInfo.getHolder());
+        cvc.setValue(cardInfo.getCvc());
         conditionButton.click();
     }
 

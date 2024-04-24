@@ -19,7 +19,7 @@ public class DataHelper {
     @Value
     //@Data
     @RequiredArgsConstructor
-    public static class AuthInfo {
+    public static class CardInfo {
         String cvc;
         String holder;
         String month;
@@ -76,11 +76,11 @@ public class DataHelper {
     }
 
     public static String getFutureYear() {
-        return LocalDate.now().plusYears(FAKER.number().numberBetween(-1, -23)).format(DateTimeFormatter.ofPattern("yy"));
+        return LocalDate.now().plusYears(FAKER.number().numberBetween(6, 75)).format(DateTimeFormatter.ofPattern("yy"));
     }
 
     public static String getPastYear() {
-        return LocalDate.now().plusYears(FAKER.number().numberBetween(6, 75)).format(DateTimeFormatter.ofPattern("yy"));
+        return LocalDate.now().plusYears(FAKER.number().numberBetween(-1, -23)).format(DateTimeFormatter.ofPattern("yy"));
     }
 
     public static String getThreeHundredYear() {

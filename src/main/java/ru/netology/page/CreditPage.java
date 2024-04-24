@@ -2,7 +2,7 @@ package ru.netology.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import ru.netology.data.DataHelper;
+import ru.netology.data.DataHelper.CardInfo;
 
 import java.time.Duration;
 
@@ -17,12 +17,12 @@ public class CreditPage {
     private final SelenideElement cvc = $(byText("CVC/CVV")).parent().$(".input__control");
     private final SelenideElement conditionButton = $(byText("Продолжить"));
 
-    public void fillForm1(DataHelper.AuthInfo authInfo) {
-        cardNumber.setValue(authInfo.getCardNumber());
-        month.setValue(authInfo.getMonth());
-        year.setValue(authInfo.getYear());
-        holder.setValue(authInfo.getHolder());
-        cvc.setValue(authInfo.getCvc());
+    public void fillForm1(CardInfo cardInfo) {
+        cardNumber.setValue(cardInfo.getCardNumber());
+        month.setValue(cardInfo.getMonth());
+        year.setValue(cardInfo.getYear());
+        holder.setValue(cardInfo.getHolder());
+        cvc.setValue(cardInfo.getCvc());
         conditionButton.click();
     }
 

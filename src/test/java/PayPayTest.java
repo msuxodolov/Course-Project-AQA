@@ -1,9 +1,8 @@
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import lombok.val;
 import org.junit.jupiter.api.*;
-import ru.netology.data.ApiHelper;
 import ru.netology.data.DataHelper;
+import ru.netology.data.DatabaseHelper;
 import ru.netology.page.DashboardPage;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -27,261 +26,261 @@ public class PayPayTest {
 
     // Сценарий №1
     @Test
-    void keysTest1() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void paymentWithRegisteredCardUsingValidData() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.successfullPayment();
     }
 
     // Сценарий №2
     @Test
-    void keysTest2() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val creditPage  = dashboardPage.payByCredit();
-        creditPage.fillForm1(authInfo);
+    void paymentInCreditWithRegisteredCardUsingValidData() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var creditPage  = dashboardPage.payByCredit();
+        creditPage.fillForm1(cardInfo);
         creditPage.successfullPayment1();
     }
 
     // Сценарий №3 (Bag №1)
     @Test
-    void keysTest3() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getDeclinedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void paymentWithDeclinedCardUsingValidData() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getDeclinedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.successErrorPayment();
     }
 
     // Сценарий №4 (Bag №2)
     @Test
-    void keysTest4() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getDeclinedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val creditPage  = dashboardPage.payByCredit();
-        creditPage.fillForm1(authInfo);
+    void paymentInCreditWithDeclinedCardUsingValidData() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getDeclinedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var creditPage  = dashboardPage.payByCredit();
+        creditPage.fillForm1(cardInfo);
         creditPage.successErrorPayment1();
     }
 
     // Сценарий №5
     @Test
-    void keysTest5() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), generateRandomCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void paymentUsingANonExistentCard() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), generateRandomCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.successErrorPayment();
     }
 
     // Сценарий №6
     @Test
-    void keysTest6() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), generateIncompleteApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void paymentByPartialCardNumber() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), generateIncompleteApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.cardNumberErrorVisible();
     }
 
     // Сценарий №7
     @Test
-    void keysTest7() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), null, getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void sendingAnEmptyFieldCardNumberWhenPayingForAService() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), null, getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.cardNumberErrorVisible();
     }
 
     // Сценарий №8
     @Test
-    void keysTest8() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), null, getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void sendingAnEmptyFieldMonthWhenPayingForAService() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), null, getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.monthErrorVisible();
     }
 
     // Сценарий №9 (Bag №3)
     @Test
-    void keysTest9() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getDoubleZeroMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void sendingAnonExistentZeroMonthWhenPayingForAService() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getDoubleZeroMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.monthErrorVisible();
     }
 
     // Сценарий №10
     @Test
-    void keysTest10() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), get13Month(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void sendingAnonExistentThirteenthMonthWhenPayingForAService() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), get13Month(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.monthErrorVisible();
     }
 
     // Сценарий №11
     @Test
-    void keysTest11() {
-        val authInfo = new DataHelper.AuthInfo(null, null, getSimvolMonth(), null,  null);
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringCharactersInTheMonthField() {
+        var cardInfo = new DataHelper.CardInfo(null, null, getSimvolMonth(), null,  null);
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.monthErrorVisible();
     }
 
     // Сценарий №12
     @Test
-    void keysTest12() {
-        val authInfo = new DataHelper.AuthInfo(null, null, getOneMonth(), null,  null);
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringOneDigitInTheMonthField() {
+        var cardInfo = new DataHelper.CardInfo(null, null, getOneMonth(), null,  null);
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.monthErrorVisible();
     }
 
     // Сценарий №13
     @Test
-    void keysTest13() {
-        val authInfo = new DataHelper.AuthInfo(null, null, getThreeHundredMonth(), null,  null);
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringThreeDigitsInTheMonthField() {
+        var cardInfo = new DataHelper.CardInfo(null, null, getThreeHundredMonth(), null,  null);
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.yearErrorVisible();
     }
 
     // Сценарий №14
     @Test
-    void keysTest14() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  null);
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void submittingAnEmptyYearFieldWhenPayingForAService() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  null);
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.yearErrorVisible();
     }
 
     // Сценарий №15
     @Test
-    void keysTest15() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getFutureYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringThePastYearWhenPayingForAService() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getFutureYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.yearErrorVisible();
     }
 
     // Сценарий №16
     @Test
-    void keysTest16() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getPastYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringAFutureDateBeyondTheNormalExpirationDateOfCards() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getPastYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.yearErrorVisible();
     }
 
     // Сценарий №17
     @Test
-    void keysTest17() {
-        val authInfo = new DataHelper.AuthInfo(null, null, null, null,  getThreeHundredYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringThreeDigitsInTheYearField() {
+        var cardInfo = new DataHelper.CardInfo(null, null, null, null,  getThreeHundredYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.monthErrorVisible();
     }
 
     // Сценарий №18
     @Test
-    void keysTest18() {
-        val authInfo = new DataHelper.AuthInfo(null, null, null, null,  getSimvolYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringCharactersIntoTheYearField() {
+        var cardInfo = new DataHelper.CardInfo(null, null, null, null,  getSimvolYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.yearErrorVisible();
     }
 
     // Сценарий №19 (Bag №4)
     @Test
-    void keysTest19() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomRussianName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringCharactersInTheOwnerFieldInCyrillic() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomRussianName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.holderErrorVisible();
     }
 
     // Сценарий №20
     @Test
-    void keysTest20() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), null, getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void submittingBlankDataInTheOwnerField() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), null, getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.holderErrorVisible();
     }
 
     // Сценарий №21 (Bag №5)
     @Test
-    void keysTest21() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getMaximumLimitName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringMaximumValueInTheOwnerFieldBeyondTheBoundaryValue() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getMaximumLimitName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.holderErrorVisible();
     }
 
     // Сценарий №22 (Bag №6)
     @Test
-    void keysTest22() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getMinLimitName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringOneValidCharacterInTheOwnerField() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getMinLimitName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.holderErrorVisible();
     }
 
     // Сценарий №23
     @Test
-    void keysTest23() {
-        val authInfo = new DataHelper.AuthInfo(null, getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void submittingBlankDataInTheCVCVVCField() {
+        var cardInfo = new DataHelper.CardInfo(null, getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.cvvErrorVisible();
     }
 
     // Сценарий №24
     @Test
-    void keysTest24() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomTwoCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringIncompleteDataInTheCVCVVCField() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomTwoCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.cvvErrorVisible();
     }
 
     // Сценарий №25
     @Test
-    void keysTest25() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomForCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringDataBeyondTheBoundaryValuesInTheCVCVVCField() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomForCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.successfullPayment();
     }
 
     // Сценарий №26
     @Test
-    void keysTest26() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomSymbolCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+    void enteringExtraneousCharactersInTheCVCVVCField() {
+        var cardInfo = new DataHelper.CardInfo(generateRandomSymbolCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.cvvErrorVisible();
     }
 
@@ -290,12 +289,12 @@ public class PayPayTest {
     @Test
     @DisplayName("Просмотр статуса в СУБД MySQL зарегистрированного пользователя")
     void databaseQueryApprovedStatusTest() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getApprovedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.successfullPayment();
-        var PaymentStatus = ApiHelper.getStatusSQL();
+        var PaymentStatus = DatabaseHelper.getStatusSQL();
         Assertions.assertEquals("APPROVED", PaymentStatus);
     }
 
@@ -303,13 +302,13 @@ public class PayPayTest {
     @Test
     @DisplayName("Просмотр оплаты тура в СУБД MySQL зарегистрированного пользователя")
     void databaseQueryApprovedAmountTest() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(),
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(),
                 getValidMonth(), getApprovedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.successfullPayment();
-        var PaymentAmount = ApiHelper.getAmountSQL();
+        var PaymentAmount = DatabaseHelper.getAmountSQL();
         Assertions.assertEquals(450000, PaymentAmount);
     }
 
@@ -317,12 +316,12 @@ public class PayPayTest {
     @Test
     @DisplayName("Просмотр статуса в СУБД MySQL отклоненного пользователя")
     void databaseQueryDeclinedStatusTest() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getDeclinedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(), getDeclinedCardInfo(),  getValidYear());
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.successfullPayment();
-        var PaymentStatus = ApiHelper.getStatusSQL();
+        var PaymentStatus = DatabaseHelper.getStatusSQL();
         Assertions.assertEquals("DECLINED", PaymentStatus);
     }
 
@@ -330,13 +329,13 @@ public class PayPayTest {
     @Test
     @DisplayName("Просмотр оплаты тура в СУБД MySQL отклоненного пользователя")
     void databaseQueryDeclinededAmountTest() {
-        val authInfo = new DataHelper.AuthInfo(generateRandomCVV(), getRandomName(), getValidMonth(),
+        var cardInfo = new DataHelper.CardInfo(generateRandomCVV(), getRandomName(), getValidMonth(),
                 getDeclinedCardInfo(),  getValidYear());
-        val dashboardPage = new DashboardPage();
-        val paymentPage = dashboardPage.payByCard();
-        paymentPage.fillForm(authInfo);
+        var dashboardPage = new DashboardPage();
+        var paymentPage = dashboardPage.payByCard();
+        paymentPage.fillForm(cardInfo);
         paymentPage.successfullPayment();
-        var PaymentAmount = ApiHelper.getAmountSQL();
+        var PaymentAmount = DatabaseHelper.getAmountSQL();
         Assertions.assertEquals(0, PaymentAmount);
     }
 
